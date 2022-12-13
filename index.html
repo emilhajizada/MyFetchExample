@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="inp" />
+    <button id="deleteBtn">delete this element</button>
+    <button id="btn">button</button>
+
+    
+    <script>
+      document.getElementById("btn").onclick = () => {
+        postData();
+      };
+      document.getElementById("deleteBtn").onclick = () => {
+        const id = document.getElementById("inp").value;
+        updateData(id);
+      };
+      //GET request
+      function getData(params) {
+        fetch("https://northwind.vercel.app/api/categories")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+      }
+
+      //POST
+
+      function postData() {
+        fetch("https://northwind.vercel.app/api/categories", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: "Ilham" }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+      }
+
+      // DELETE
+      function deleteData(id) {
+        fetch(`https://northwind.vercel.app/api/categories/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+      }
+
+      //UPDATE
+      function updateData(id) {
+        fetch(`https://northwind.vercel.app/api/categories/${id}`, {
+          method: "put",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+             name: "Xumar" ,
+             surname:"Babazade",
+             age:"55",
+             friends :["Diana,Ulviyye"],
+             enemy :["ALi"]
+            }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+      }
+  
+    </script>
+  </body>
+</html>
